@@ -1,15 +1,15 @@
 kumuluzee:
-  name: tt-places
+  name: tt-customers
   env:
     name: dev
   version: 1.0.0
   server:
-    base-url: http://localhost:8082
+    base-url: http://localhost:8083
     http:
-      port: 8082
+      port: 8083
   datasources:
-    - jndi-name: jdbc/PlacesDS
-      connection-url: jdbc:postgresql://127.0.0.1:5434/place
+    - jndi-name: jdbc/CustomersDS
+      connection-url: jdbc:postgresql://127.0.0.1:5435/customer
       username: dbuser
       password: postgres
       max-pool-size: 20

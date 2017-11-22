@@ -1,31 +1,26 @@
-package si.fri.tabletop.places.services;
+package si.fri.tabletop.customers.services;
 
 import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import si.fri.tabletop.places.models.dependent.Menu;
-import si.fri.tabletop.places.models.Place;
-import si.fri.tabletop.places.services.config.RestProperties;
+import si.fri.tabletop.customers.models.Customer;
+import si.fri.tabletop.customers.services.config.RestProperties;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
-import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class PlacesBean {
+public class CustomersBean {
 
-    private Logger log = LogManager.getLogger(PlacesBean.class.getName());
+    private Logger log = LogManager.getLogger(CustomersBean.class.getName());
 
     @Inject
     private RestProperties restProperties;
@@ -34,7 +29,7 @@ public class PlacesBean {
     private EntityManager em;
 
     @Inject
-    private PlacesBean placesBean;
+    private CustomersBean customersBean;
 
     private Client httpClient;
 
@@ -49,49 +44,43 @@ public class PlacesBean {
         httpClient = ClientBuilder.newClient();
     }
 
-    public List<Place> getPlaces(UriInfo uriInfo) {
+    public List<Customer> getCustomers(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery())
                 .defaultOffset(0)
                 .build();
 
-        return JPAUtils.queryEntities(em, Place.class, queryParameters);
+        return JPAUtils.queryEntities(em, Customer.class, queryParameters);
 
     }
 
-    public Place getPlace(String placeId) {
+    public Customer getCustomer(String placeId) {
 
-        Place place = em.find(Place.class, placeId);
+        Customer customer = em.find(Customer.class, placeId);
 
-        if (place == null) {
+        if (customer == null) {
             throw new NotFoundException();
         }
 
-        // TODO: Change when we have config server
-        //if (restProperties.isMenuServiceEnabled()) {
-        List<Menu> menus = placesBean.getMenus(placeId);
-        place.setMenus(menus);
-        //}
-
-        return place;
+        return customer;
     }
 
-    public Place createPlace(Place place) {
+    public Customer createCustomer(Customer customer) {
 
         try {
             beginTx();
-            em.persist(place);
+            em.persist(customer);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return place;
+        return customer;
     }
 
-    public Place putPlace(String placeId, Place place) {
+    public Customer putCustomer(String placeId, Customer customer) {
 
-        Place c = em.find(Place.class, placeId);
+        Customer c = em.find(Customer.class, placeId);
 
         if (c == null) {
             return null;
@@ -99,24 +88,24 @@ public class PlacesBean {
 
         try {
             beginTx();
-            place.setId(c.getId());
-            place = em.merge(place);
+            customer.setId(c.getId());
+            customer = em.merge(customer);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return place;
+        return customer;
     }
 
-    public boolean deletePlace(String placeId) {
+    public boolean deleteCustomer(String placeId) {
 
-        Place place = em.find(Place.class, placeId);
+        Customer customer = em.find(Customer.class, placeId);
 
-        if (place != null) {
+        if (customer != null) {
             try {
                 beginTx();
-                em.remove(place);
+                em.remove(customer);
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
@@ -125,27 +114,6 @@ public class PlacesBean {
             return false;
 
         return true;
-    }
-
-
-    public List<Menu> getMenus(String placeId) {
-
-        log.info("PLACE ID: "+ placeId);
-        // TODO: Change when we have config server
-        //if (baseUrl.isPresent()) {
-        try {
-            return httpClient
-                    .target(baseUrl + "/v1/menus?where=placeId:EQ:" + placeId)
-                    .request().get(new GenericType<List<Menu>>() {
-                    });
-        }catch (WebApplicationException | ProcessingException e) {
-            log.error(e);
-            return new ArrayList<>();
-            //throw new InternalServerErrorException();
-        }
-        // }
-
-        //return new ArrayList<>();
     }
 
     private void beginTx() {

@@ -1,4 +1,4 @@
-package si.fri.tabletop.places.services.producers;
+package si.fri.tabletop.customers.services.producers;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;

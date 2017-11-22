@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>si.fri.tabletop</groupId>
-    <artifactId>places</artifactId>
+    <artifactId>customers</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -57,17 +57,17 @@
 
             <dependency>
                 <groupId>si.fri.tabletop</groupId>
-                <artifactId>places-api</artifactId>
+                <artifactId>customers-api</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>si.fri.tabletop</groupId>
-                <artifactId>places-models</artifactId>
+                <artifactId>customers-models</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>si.fri.tabletop</groupId>
-                <artifactId>places-services</artifactId>
+                <artifactId>customers-services</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
 

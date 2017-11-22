@@ -1,4 +1,4 @@
-package si.fri.tabletop.places.services.config;
+package si.fri.tabletop.customers.services.config;
 
 import com.kumuluz.ee.configuration.cdi.ConfigBundle;
 import com.kumuluz.ee.configuration.cdi.ConfigValue;
@@ -9,6 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
 @ConfigBundle("rest-properties")
 public class RestProperties {
 
+    /*
+     * If we will need this, uncomment and adjust for specific service.
+     */
+    /*
     @ConfigValue(value = "external-services.menu-service.enabled", watch = true)
     private boolean menuServiceEnabled;
 
@@ -19,4 +23,5 @@ public class RestProperties {
     public void setMenuServiceEnabled(boolean menuServiceEnabled) {
         this.menuServiceEnabled = menuServiceEnabled;
     }
+    */
 }

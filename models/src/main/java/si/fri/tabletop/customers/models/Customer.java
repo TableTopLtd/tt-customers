@@ -1,19 +1,17 @@
-package si.fri.tabletop.places.models;
+package si.fri.tabletop.customers.models;
 
 import org.eclipse.persistence.annotations.UuidGenerator;
-import si.fri.tabletop.places.models.dependent.Menu;
 
 import javax.persistence.*;
-import java.util.List;
 
-@Entity(name = "places")
+@Entity(name = "customers")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Place.getAll", query = "SELECT p FROM places p"),
+                @NamedQuery(name = "Customer.getAll", query = "SELECT p FROM customers p"),
         })
 @UuidGenerator(name = "idGenerator")
-public class Place {
-
+public class Customer {
+    // TODO: Adjust for customer
     @Id
     @GeneratedValue(generator = "idGenerator")
     private String id;
@@ -30,8 +28,6 @@ public class Place {
     @Column(name = "country_code")
     private String countryCode;
 
-
-    private List<Menu> menus;
 
     // Getters and setters
     public String getId() {
@@ -80,15 +76,6 @@ public class Place {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
-    }
-
-
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<Menu> menus) {
-        this.menus = menus;
     }
 
 }
