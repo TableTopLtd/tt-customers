@@ -37,10 +37,10 @@ public class CustomersResource {
     }
 
     @GET
-    @Path("/{customerId}")
-    public Response getCustomer(@PathParam("customerId") String customerId) {
+    @Path("/{username}")
+    public Response getCustomer(@PathParam("username") String username) {
 
-        Customer customer = customersBean.getCustomer(customerId);
+        Customer customer = customersBean.getCustomer(username);
 
         if (customer == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -52,13 +52,13 @@ public class CustomersResource {
     @POST
     public Response createCustomer(Customer customer) {
 
-        if (customer.getTitle() == null || customer.getTitle().isEmpty()) {
+        if (customer.getEmail() == null || customer.getEmail().isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
             customer = customersBean.createCustomer(customer);
         }
 
-        if (customer.getId() != null) {
+        if (customer.getUsername() != null) {
             return Response.status(Response.Status.CREATED).entity(customer).build();
         } else {
             return Response.status(Response.Status.CONFLICT).entity(customer).build();
@@ -66,15 +66,15 @@ public class CustomersResource {
     }
 
     @PUT
-    @Path("{customerId}")
-    public Response putCustomer(@PathParam("customerId") String customerId, Customer customer) {
+    @Path("{username}")
+    public Response putCustomer(@PathParam("username") String username, Customer customer) {
 
-        customer = customersBean.putCustomer(customerId, customer);
+        customer = customersBean.putCustomer(username, customer);
 
         if (customer == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            if (customer.getId() != null)
+            if (customer.getUsername() != null)
                 return Response.status(Response.Status.OK).entity(customer).build();
             else
                 return Response.status(Response.Status.NOT_MODIFIED).build();
@@ -82,10 +82,10 @@ public class CustomersResource {
     }
 
     @DELETE
-    @Path("{customerId}")
-    public Response deleteCustomer(@PathParam("customerId") String customerId) {
+    @Path("{username}")
+    public Response deleteCustomer(@PathParam("username") String username) {
 
-        boolean deleted = customersBean.deleteCustomer(customerId);
+        boolean deleted = customersBean.deleteCustomer(username);
 
         if (deleted) {
             return Response.status(Response.Status.GONE).build();

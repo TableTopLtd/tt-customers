@@ -11,71 +11,58 @@ import javax.persistence.*;
         })
 @UuidGenerator(name = "idGenerator")
 public class Customer {
-    // TODO: Adjust for customer
+
     @Id
-    @GeneratedValue(generator = "idGenerator")
-    private String id;
+    private String username;
 
-    private String title;
+    // Password will be hashed
+    private String password;
 
-    private String description;
+    private String email;
 
-    private String address;
+    private String firstName;
 
-    @Column(name = "postal_code")
-    private int postalCode;
-
-    @Column(name = "country_code")
-    private String countryCode;
-
+    private String surname;
 
     // Getters and setters
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getName() {
+        return firstName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public int getPostalCode() {
-        return postalCode;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
 }
