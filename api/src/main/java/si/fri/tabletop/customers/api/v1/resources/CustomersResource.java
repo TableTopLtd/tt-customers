@@ -1,5 +1,6 @@
 package si.fri.tabletop.customers.api.v1.resources;
 
+import com.kumuluz.ee.logs.cdi.Log;
 import si.fri.tabletop.customers.models.Customer;
 import si.fri.tabletop.customers.services.CustomersBean;
 import si.fri.tabletop.customers.services.config.RestProperties;
@@ -17,6 +18,7 @@ import java.util.List;
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Log
 public class CustomersResource {
 
     @Context
