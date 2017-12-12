@@ -1,0 +1,7 @@
+kubectl delete deploy customers-deployment
+kubectl delete deploy postgres-customers-deployment
+
+kubectl create -f postgres-customers-deployment.yaml
+kubectl create -f customers-deployment.yaml
+
+kubectl proxy
