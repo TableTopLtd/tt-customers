@@ -13,9 +13,12 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
+    @GeneratedValue(generator = "idGenerator")
+    private String id;
+
     private String username;
 
-    // Password will be hashed
+    // Password will not be hashed.
     private String password;
 
     private String email;
@@ -25,6 +28,14 @@ public class Customer {
     private String surname;
 
     // Getters and setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }

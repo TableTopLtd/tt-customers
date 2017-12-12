@@ -35,12 +35,6 @@ public class CustomersBean {
 
     private Client httpClient;
 
-    // TODO: Change when we have config server, at the moment we dont need
-    //@Inject
-    //@DiscoverService("tt-menus")
-    //private Optional<String> baseUrl;
-    private String baseUrl = "http://localhost:8081";
-
     // Currently not used
     public static final String SALT = "xxx";
 
@@ -59,9 +53,9 @@ public class CustomersBean {
 
     }
 
-    public Customer getCustomer(String customerUsername) {
+    public Customer getCustomer(String customerId) {
 
-        Customer customer = em.find(Customer.class, customerUsername);
+        Customer customer = em.find(Customer.class, customerId);
 
         if (customer == null) {
             throw new NotFoundException();
@@ -89,9 +83,9 @@ public class CustomersBean {
         return customer;
     }
 
-    public Customer putCustomer(String customerUsername, Customer customer) {
+    public Customer putCustomer(String customerId, Customer customer) {
 
-        Customer c = em.find(Customer.class, customerUsername);
+        Customer c = em.find(Customer.class, customerId);
 
         if (c == null) {
             return null;
@@ -99,7 +93,7 @@ public class CustomersBean {
 
         try {
             beginTx();
-            customer.setUsername(c.getUsername());
+            customer.setId(c.getId());
             customer = em.merge(customer);
             commitTx();
         } catch (Exception e) {
@@ -109,9 +103,9 @@ public class CustomersBean {
         return customer;
     }
 
-    public boolean deleteCustomer(String username) {
+    public boolean deleteCustomer(String id) {
 
-        Customer customer = em.find(Customer.class, username);
+        Customer customer = em.find(Customer.class, id);
 
         if (customer != null) {
             try {
